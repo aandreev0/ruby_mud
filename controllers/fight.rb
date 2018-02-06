@@ -1,0 +1,3 @@
+def attack(target)
+  
+end
