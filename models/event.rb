@@ -1,23 +1,47 @@
-WEATHER = [""]
-
 class Event
-  def Event.each_tick
+  ROUND = 2
+  TICK = 60
+  PULSE = 0.1
+
+  def Event.each_round
+    
     Thread.new do
-      loop do
-        send_to_all "Время сервера: #{Time.now.strftime("%H:%M:%S")}."
-        
-        Player.find(:online).each do |player|
-          player.rest
+      begin
+        loop do
+          DataBase.fighters.each{|cr|
+            cr.in_round
+          }
+          DataBase.fighters.each{|cr|
+            cr.after_round
+          }
+          DataBase.rooms.each{|id, room|
+            room.creatures.each{|cr| cr.after_nonfight_round }
+          }
+          sleep ROUND
         end
-        
-        sleep 60
+      rescue
+       $log.info "event.rb err: "+$!
       end
     end
   end
   
-  def Event.fight_ticks
-    #Thread.do
-   # 
-   # end
+  def Event.each_pulse
+  end
+  
+  def Event.each_tick
+    Thread.new do
+      begin
+        loop do
+          sleep TICK
+          $log.info " -- tick -->"
+          DataBase.rooms.each{|id, room|
+              room.creatures.each{|cr| cr.on_tick }
+          }
+          DataBase.dump
+        end
+      rescue
+        $log.info "event.rb err: "+$!
+      end
+    end
   end
 end

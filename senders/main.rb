@@ -23,12 +23,5 @@ def send_to_many_players(msg, arr)
 end
 
 def encode(msg, to, from)
-  if to == "cp1251-ya-fix"
-    msg = msg.gsub(/я/,"яя")
-    to = "cp1251"
-  end
-  
-  from = "cp1251" if from == "cp1251-ya-fix"
-  
-  Iconv.new(to, from).iconv(msg)
+  msg
 end

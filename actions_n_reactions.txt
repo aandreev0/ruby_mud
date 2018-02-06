@@ -1,0 +1,41 @@
+def on_tick
+    if prs = procedures[:on_tick]
+      prs.each{||}
+    end
+  end
+  
+
+  def on_round;end
+  
+  # - Room
+  def before_enter(who, dir);end
+  def after_enter(who, dir);end
+  
+  def before_exit(who, dir);end
+  def after_exit(who, dir);end
+  
+  # - Creatures:
+  def after_sit(who);end
+  def after_stand(who);end
+  def after_sleep(who);end
+  def after_wake(who);end
+  
+  def before_sit(who);end
+  def before_stand(who);end
+  def before_sleep(who);end
+  def before_wake(who);end
+  
+  # - Items
+  def after_take(who, what);end
+  def after_drop(who, what);end
+  def after_equip(who, what, where);end
+  def after_remove(who,what, from);end
+  
+  def before_take(who, what);end
+  def before_drop(who, what);end
+  def before_equip(who, what, where);end
+  def before_remove(who,what, from);end
+  
+  # - Common
+  def before_look(who, what);end
+  def after_look(who, what);end
