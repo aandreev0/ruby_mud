@@ -36,22 +36,10 @@ class Player < Creature
           ["Please use only a-zA-z:", :new_player_name]
         else
           sock.login_data[:player_name] = inp
-          ["Форма имени, отвечающая на вопрос \"#{NAMES_FORMS_QUESTIONS[0]}?\":", :new_player_name_forms]
+          ["Enter gender (#{REG_GENDERS.join("/")}):", :new_player_gender]
         end
 
-      when :new_player_name_forms
-        sock.login_data[:player_name_forms]||=[]
-        it = sock.login_data[:player_name_forms].length
-        if it <= 4
-          sock.login_data[:player_name_forms][it] = inp
-          if it <4
-            ["Форма имени, отвечающая на вопрос \"#{NAMES_FORMS_QUESTIONS[it+1]}?\":", :new_player_name_forms]
-          else
-            ["Введите пол персонажа (#{REG_GENDERS.join("/")}):", :new_player_gender]
-          end
-        else
-          ["Введите пол персонажа (#{REG_GENDERS.join("/")}):", :new_player_gender]
-        end
+
 
       when :new_player_gender
         if REG_GENDERS.include?(inp)
@@ -98,8 +86,8 @@ class Player < Creature
                                :password => sock.login_data[:player_password],
                                :gender   => sock.login_data[:player_gender],
                                :race     => sock.login_data[:player_race],
-                               :side     => sock.login_data[:player_side],
-                               :name_forms => sock.login_data[:player_name_forms].unshift(sock.login_data[:player_name])})
+                               :side     => sock.login_data[:player_side]})
+          $log.info player
           player.socket = sock
           sock.player_id = player.id
           player.logged_in = true

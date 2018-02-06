@@ -49,7 +49,6 @@ class Monster < Creature
     :affects      => affects,
     :position     => position,
     :gender       => gender.to_s,
-    :name_forms   => name_forms.collect{|n| n.to_s},
     :description  => description.to_s,
     :race         => race.to_i,
     :side         => side.to_i,

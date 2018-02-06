@@ -7,7 +7,7 @@ class Player < Creature
 
   def initialize(hash)
     super(hash)
-    @password = hash[:password].to_s.chars
+    @password = hash[:password].to_s
     @logged_in = false
     self.fight_log = ""
     set_player_filters
@@ -35,7 +35,7 @@ class Player < Creature
   def scores
 
     st = []
-    Creature::STATS.each_index{|ind| st<< "#{Creature::STATS[ind].chars.ljust(12)} #{stats[ind]}" }
+    Creature::STATS.each_index{|ind| st<< "#{Creature::STATS[ind].ljust(12)} #{stats[ind]}" }
     st = st.join("\n                ")
 
     send ("Вы "+Color.light_yellow(titled_name)+
@@ -59,7 +59,7 @@ class Player < Creature
 
   def send(msg, *args)
     if online?
-      socket.put msg+"\n\n"+state
+      socket.put msg.to_s+"\n\n"+state
     end
   end
 
@@ -148,7 +148,7 @@ class Player < Creature
     :affects      => affects,
     :position     => position,
     :gender       => gender.to_s,
-    :name_forms   => name_forms.collect{|n| n.to_s},
+    :name         => name,
     :description  => description.to_s,
     :race         => race.to_i,
     :side         => side.to_i,

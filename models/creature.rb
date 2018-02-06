@@ -99,7 +99,7 @@ class Creature < MObject
   def long_name(who_ask = false)
     if fighting?
       if self.target!=who_ask
-        name.capitalize+" "+f_position+" здесь, сражается с #{self.target.name_forms[4]}."
+        name.capitalize+" "+f_position+" здесь, сражается с #{self.target.name}."
       else
         name.capitalize+" "+f_position+" здесь, сражается здесь с вами!"
       end

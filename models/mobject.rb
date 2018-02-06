@@ -9,20 +9,17 @@ class MObject
     end
     self.id = hash[:id] if hash[:id]
     @gender = hash[:gender].to_i || 2
-    @name_forms = hash[:name_forms].collect{|nf| nf.chars}
     @long_name = hash[:long_name] || nil
-    @description = (hash[:description] ? hash[:description].chars : @name_forms[0])
-
+    @description = (hash[:description] ? hash[:description] : @name)
+    @name = hash[:name]
     #@aliases = (hash[:aliases] || @name_forms[0]).split(/\s/).collect{|nf| nf if nf.length>2 }.compact
     @aliases = hash[:aliases]
   end
 
-  def name;@name_forms[0];end
+  def name;@name;end
   def long_name;@long_name;end
   def aliases;@aliases;end
 
-  def name_forms;@name_forms;end
-  def f_names_forms;name_forms.join("/");end
   def description;@description;end
 
   def method_missing(meth, *args)

@@ -2,8 +2,8 @@ require './controllers/commands.rb'
 
 module Parser
 
-  UNKNOWN = "Не знаю такой команды"
-  NO = "Напишите чего-нибудь, а?"
+  @@UNKNOWN = "Don't know this command"
+  @@NO = "Hmm?"
 
   def Parser.parse(str, player) # what, from
     str = str.gsub(/^\s*/,"").gsub(/\s*$/,"")
@@ -18,9 +18,9 @@ module Parser
           break
         end
       end
-      player.send UNKNOWN unless suc
+      player.send @@UNKNOWN unless suc
     else
-      player.send NO
+      player.send @@NO
     end
 
   end

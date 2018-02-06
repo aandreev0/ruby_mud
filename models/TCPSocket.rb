@@ -20,23 +20,7 @@ class TCPSocket
   end
 
   def select_encoding(inp=false)
-    encs = {"0" => ["utf-8", "utf-8"],
-            "1" => ["cp1251", "cp1251: windows client (e.g. JMC)"],
-            "2" => ["koi8-r", "koi8-r: telnet"]}
-    if inp
-      if encs[inp]
-        self.encoding = encs[inp][0]
-        self.put "Вы выбрали кодировку \"#{encoding}\"\n"
-        Player.login(nil, self)
-        #true
-      else
-        self.putr "No such encoding"
-        self.putr encs.collect{|k,e| "#{k}. #{e[1]}" }.join("\n")
-        false
-      end
-    else
-      self.putr encs.collect{|k, e| "#{k}. #{e[1]}" }.join("\n")
-    end
+    self.encoding = 0
   end
 
   def player
